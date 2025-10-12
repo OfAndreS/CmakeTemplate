@@ -1,148 +1,176 @@
 
-# 🛠️ Estrutura de Projeto com CMake
+<br>
 
-Este repositório apresenta um **template completo** de projeto C++ utilizando **CMake**, com organização modular de arquivos, suporte a bibliotecas externas e configuração multiplataforma.
+<div align="center"\>
+    <img width="1024" height="256" alt="image" src="https://github.com/user-attachments/assets/17a63f4e-0298-44a2-9de8-653bbb1e9f82" />
 
----
+</div>
 
-## 📁 Estrutura de Pastas
+<br>
 
-```bash
-/nomeDoSeuProjeto 
-├── CMakeLists.txt        # Arquivo principal de build
-├── include/              # Arquivos de cabeçalho (.h)
-│   └── meu_arquivo.h
-├── src/                  # Código-fonte principal (.cpp)
-│   └── main.cpp
-├── resources/            # Recursos como imagens, configs, etc.
-└── thirdParty/           # Bibliotecas de terceiros (opcional)
-```
+-----
 
----
+<div align="center"\>
+    <strong\>Um template completo para projetos C++ utilizando CMake, com organização modular, testes e exemplos.</strong\>
+</div>
 
-## ⚙️ CMakeLists.txt (raiz)
+<br>
 
-```cmake
-cmake_minimum_required(VERSION 3.13)
+<div align="center">
+  <img src="https://img.shields.io/github/license/OfAndreS/CmakeTemplate?style=for-the-badge" alt="Licença">
+  <img src="https://img.shields.io/github/stars/OfAndreS/CmakeTemplate?style=for-the-badge" alt="Stars">
+  <img src="https://img.shields.io/github/forks/OfAndreS/CmakeTemplate?style=for-the-badge" alt="Forks">
+  <img src="https://img.shields.io/github/last-commit/OfAndreS/CmakeTemplate?style=for-the-badge" alt="Último Commit">
+</div>
 
-project(nomeDoSeuProjeto)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+<br>
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include")
+<p align="center">
+  <a href="#estrutura-do-projeto">Estrutura do Projeto</a> •
+  <a href="#tecnologias">Tecnologias</a> •
+  <a href="#como-executar">Como Executar</a> •
+</p>
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+-----
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+<br>
 
-target_compile_definitions(${PROJECT_NAME} PUBLIC 
-    RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/"
-)
+|**Sobre o Projeto**|
+|-|
+|O CmakeTemplate é um repositório que serve como um ponto de partida robusto para projetos C++. Ele oferece uma estrutura organizada para aplicações de pequeno e médio porte, demonstrando práticas modernas de C++ e CMake. O template inclui exemplos de como modularizar o código em bibliotecas, gerenciar recursos, adicionar testes com CTest e configurar o ambiente de compilação para ser multiplataforma.|
 
-# Exemplo para adicionar uma biblioteca de terceiros:
-# add_subdirectory(thirdParty/minhaLib)
-# target_link_libraries(${PROJECT_NAME} PRIVATE minhaLib)
+<br>
 
-# Configuração para runtime estático no MSVC
-if(MSVC)
-    set_property(TARGET ${PROJECT_NAME} PROPERTY
-        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>$<$<CONFIG:Release>:Release>"
-    )
-endif()
-```
+-----
 
----
+<br>
 
-## ▶️ Como Compilar e Executar
+| **Funcionalidades** |
+|---|
+| <p align="justify">  Estrutura Modular: <br> <br> - Organiza o código-fonte em diretórios `src` e `include`, separando a implementação dos cabeçalhos. </p> |
+| <p align="justify"> Dois Exemplos de Projeto: <br> <br> - **SmallProject:** Um exemplo básico para demonstrar a configuração mínima, incluindo o carregamento de arquivos de recursos. <br> - **MediumProject:** Um projeto mais elaborado que divide a lógica em uma biblioteca estática (`core`) e um executável, além de incluir um conjunto de testes. </p> |
+| <p align="justify"> Gerenciamento de Recursos: <br> <br> - Demonstra como acessar arquivos externos (como `welcome.txt`) de dentro do código C++ através de macros definidas no CMake. </p> |
+| <p align="justify"> Testes Automatizados: <br> <br> - O `MediumProject` inclui um diretório `tests` com um exemplo de como configurar e executar testes usando o CTest, o framework de testes do CMake. </p> |
+| <p align="justify"> Configuração Multiplataforma: <br> <br> - O CMakeLists.txt inclui configurações para garantir a compilação em diferentes ambientes, como a ligação estática do runtime no Windows (MSVC). </p> |
 
-1. **Abra o terminal no diretório do projeto:**
-   ```bash
-   cd /caminho/para/nomeDoSeuProjeto
-   ```
+<br>
 
-2. **Crie a pasta de build e acesse-a:**
-   ```bash
-   mkdir build
-   cd build
-   ```
+-----
 
-3. **Gere os arquivos de build com CMake:**
-   - Para Visual Studio:
-     ```bash
-     cmake ..
-     ```
-   - Para Visual Studio Code:
-     ```
-     Ctrl+Shift+P → CMake: Configure
-     ```
+<br>
 
-4. **Compile o projeto:**
-   ```bash
-   cmake --build .
-   ```
+## **Estrutura do Projeto**
 
-5. **Execute o binário gerado:**
-   ```bash
-   ./nomeDoSeuProjeto
-   ```
+<br>
 
-### 💡 Dica Extra
+O template é dividido em dois subprojetos para ilustrar diferentes níveis de complexidade.
 
-Recompile automaticamente com múltiplos núcleos:
+**SmallProject:**
 
 ```bash
-cmake --build . --parallel
+SmallProject/
+├── Cmakelists.txt      # Arquivo de build do projeto
+├── include/
+│   └── appUtils.h      # Cabeçalho de uma função utilitária
+├── resources/
+│   └── file.txt        # Arquivo de recurso
+└── src/
+    ├── appUtils.cpp    # Implementação da função utilitária
+    └── main.cpp        # Ponto de entrada da aplicação
 ```
 
----
+**MediumProject:**
 
-## 📄 .gitignore
-
-```gitignore
-/build/
-/cmake-build-*/
-CMakeCache.txt
-CMakeFiles/
-Makefile
-cmake_install.cmake
-install_manifest.txt
-
-/cMakeTest
-/cMakeTest.exe
-*.out
-*.obj
-*.o
-*.a
-*.lib
-*.dll
-*.so
-*.dylib
-
-*.log
-*.tmp
-*.swp
-*.swo
-*~
-
-.vscode/
-.idea/
-*.user
-*.code-workspace
-
-.DS_Store
-Thumbs.db
+```bash
+MediumProject/
+├── CMakeLists.txt      # Arquivo de build principal
+├── include/
+│   └── core/
+│       ├── model/
+│       ├── service/
+│       └── util/
+├── src/
+│   ├── core/
+│   │   ├── model/
+│   │   ├── service/
+│   │   └── util/
+│   └── main.cpp        # Ponto de entrada que usa a biblioteca 'core'
+└── tests/
+    ├── CMakeLists.txt  # Arquivo de build para os testes
+    └── test_ProcessingService.cpp # Código do teste
 ```
 
----
+<br>
 
-## ✅ Requisitos
+## **Tecnologias**
 
-- CMake >= 3.13
-- Compilador C++ com suporte a C++17 (g++, clang++, MSVC, etc.)
+<br>
 
----
+| Ferramenta | Descrição |
+|-----------|----------------------------------------------------------------|
+| **C++** | Linguagem de programação principal utilizada, com o padrão C++17. |
+| **CMake** | Sistema de automação de build utilizado para compilar e gerenciar o projeto de forma multiplataforma. |
 
-## 📌 Observações
+<br>
 
-- Este template é ideal para projetos pequenos a médios.
-- Para projetos maiores, considere incluir testes automatizados, modularização de bibliotecas e integração contínua.
+## **Como Executar**
+
+<br>
+
+Para compilar e executar uma cópia local de um dos projetos, siga os passos abaixo.
+
+<details>
+  <summary><strong>Pré-requisitos</strong></summary>
+
+  - Você vai precisar do **CMake** (versão 3.15 ou superior) instalado.
+  - Um compilador C++ que suporte C++17 (GCC, Clang, MSVC, etc.).
+  - Git para clonar o repositório.
+
+</details>
+
+<details>
+  <summary><strong>Rodando a Aplicação</strong></summary>
+
+<br>
+
+1 ) **Clone o repositório:**
+
+```bash
+git clone <URL_DO_SEU_REPOSITORIO>
+```
+
+2 ) **Navegue até o diretório de um dos projetos (`SmallProject` ou `MediumProject`):**
+
+```bash
+cd CmakeTemplate/SmallProject
+```
+
+3 ) **Crie um diretório de build e entre nele:**
+
+```bash
+mkdir build && cd build
+```
+
+4 ) **Gere os arquivos de build com o CMake:**
+
+```bash
+cmake ..
+```
+
+5 ) **Compile o projeto:**
+
+```bash
+cmake --build .
+```
+
+6 ) **Execute o programa gerado (o nome pode variar com base no `project()` definido no CMakeLists.txt):**
+
+```bash
+# No Linux/macOS
+./YourProjectName
+
+# No Windows
+YourProjectName.exe
+```
+
+</details>
