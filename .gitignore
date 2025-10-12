@@ -33,7 +33,7 @@ compile_commands.json
 *.profraw
 *.log
 *~
-
+build
 # macOS
 #######
 .DS_Store
