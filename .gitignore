@@ -1,6 +1,39 @@
-/out
-bin/
-build/
-/.vs
-.idea/
-CMakeSettings.json
+# Compilação e Build
+###################
+/build/
+/out/
+/install/
+/bin/
+/cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+
+# Ficheiros de IDEs
+#################
+/.vs/
+/.vscode/
+/.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# Ficheiros gerados e temporários
+################################
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.profraw
+*.log
+*~
+
+# macOS
+#######
+.DS_Store
